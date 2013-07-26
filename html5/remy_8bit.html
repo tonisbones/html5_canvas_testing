@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Canvas practice</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+<canvas id="myCanvas" width="475" height="475" style="border: 1px solid black;"></canvas>
+<script type="text/javascript">
+function draw_pix(x, y, ctx, rad, color) {
+	ctx.fillStyle=color;
+	ctx.fillRect(x * rad, y * rad, rad, rad);
+}
+function draw_grid(ctx, rad, xbound, ybound) {
+	for (var i=0; i <= xbound; i+=5) {
+		for (var j=0; j <= ybound; j+=5) {
+			draw_pix(i, j, ctx, rad, "black");
+		}
+	}
+}
+var canv = document.getElementById("myCanvas");
+var CANV_WIDTH = canv.getAttribute("width");
+var CANV_HEIGHT = canv.getAttribute("height");
+var ctx = canv.getContext("2d");
+var SCALE = 25 ;
+var remyd = [
+	[6,19],[7,19],[8,19],[9,19],[10,19],[11,19],
+	[6,18],[7,18],[8,18],[9,18],[10,18],[11,18],
+	[6,17],[7,17],[8,17],[9,17],[10,17],[11,17]
+];
+var draw = false;
+for (var i=0; i < 20; i++) {
+	for (var j=0; j < 20; j++) {
+		//sides of head
+		if (i >= 6 && i <= 11 && (j <= 2 || j > 15)) 
+			draw = true;
+		//top of head
+		if (i < 3 && i != 0 && j >4 && j < 14) 
+			draw = true;
+		//goatee
+		if (j < 12 && j > 6 && i > 12 && i != 18 && i != 12) 
+			draw = true;
+		if ( (i == 12 || i == 11) && j != 12 && j != 6) 
+			draw = true;
+		if ((j < 5 || j > 13) && i == 13) 
+			draw = true;
+		if ((j < 4 || j > 14) && i == 14)
+			draw = true;
+		if (j != 0 && j != 18 && (j < 3 || j > 15) && i == 15)
+			draw = true;
+		//chinstrap
+		if (i == 16 && j > 1 && j < 17)
+			draw = true;
+		//eyes
+		if ( i > 6 && i < 9 && (j >5 && j < 8 || j > 10 && j < 13) ) 
+			draw = true;
+		if (draw) {
+			alert(j + " " + i);
+			draw_pix(j, i, ctx, SCALE, "Black");	
+			draw = false;
+		}
+	}
+}
+//draw_grid(ctx, SCALE, CANV_WIDTH, CANV_HEIGHT);
+/*for (pix in remyd) {
+	draw_pix(remyd[pix][1], remyd[pix][0], ctx, SCALE, "black");
+}
+*/
+</script>
+</body>
+
+</html>
