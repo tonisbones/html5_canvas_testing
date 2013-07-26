@@ -1,0 +1,5 @@
+I'm just messing around with some HTML5.
+
+I use the same sort of methods in all my files. Namely the draw_pix() function. 
+I use that to draw square blocks that are spaced far enough away from each other 
+to simulate "blocks". 
